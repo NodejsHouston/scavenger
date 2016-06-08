@@ -1,3 +1,5 @@
+const email = require('../include/email')();
+
 const register = (server, options, next) => {
 
   server.route({
@@ -8,6 +10,24 @@ const register = (server, options, next) => {
         directory: { path: './dist/client' }
       }
     }
+  });
+
+  server.route({
+    method: 'POST',
+    path: '/forgotPassword',
+    config: {
+      handler: (request, reply) => {
+        // TODO: generate temporary password or token for web endpoint
+        // TODO: lookup email and make sure it exists
+        var message = {
+          to: request.payload.email,
+          subject: 'forgot password?',
+          text: 'You seem to have forgotten your password... that\'s too bad.',
+        };
+        email.sendMail(message);
+        reply('email sent');
+      },
+    },
   });
 
   server.route({
