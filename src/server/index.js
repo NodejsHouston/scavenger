@@ -3,6 +3,7 @@ import good from "good";
 import inert from "inert";
 import base from "./base";
 import dev from "./dev";
+import Basic from "hapi-auth-basic";
 
 const env = process.env.NODE_ENV || 'development'
 
@@ -26,6 +27,7 @@ server.settings.app = {
   Second: project specific plugins are loaded
  */
 server.register([
+  Basic,
   {
     register: good,
     options: {
